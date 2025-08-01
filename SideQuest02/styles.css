@@ -1,0 +1,78 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  background-color: whitesmoke;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.main-text {
+  font-size: 48px;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  color: #6c63ff;
+}
+
+.main-container {
+  width: 800px;
+  display: grid;
+  grid-template-columns: 200px 200px 150px;
+  gap: 0.5rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.main-container > input {
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+.main-container > button {
+  background-color: #6c63ff;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-weight: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.task-container {
+  display: grid;
+  grid-template-columns: 200px 200px 75px 75px;
+  gap: 5px;
+  margin-top: 1.5rem;
+  font-size: 16px;
+  align-items: center;
+}
+.task-container > .delete-btn {
+  background-color: rgb(167, 9, 9);
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 3px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+}
+.task-container > .edit-btn {
+  background-color: green;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 3px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: white;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: rgb(129, 129, 129);
+}
