@@ -4,9 +4,16 @@ const gameChoices = document.querySelector(".game-choices");
 const gameResult = document.querySelector(".game-result");
 
 const choices = ["rock", "paper", "scissors"];
+let scoreBoard = { Wins: 0, losses: 0, Tie: 0 };
 
-const scoreBoard = { Wins: 0, losses: 0, Tie: 0 };
 let result = "";
+
+function renderedGameScore() {
+  const savedData = JSON.parse(localStorage.getItem("scores"));
+  scoreBoard = savedData || {};
+  gameScore.textContent = `Wins: ${scoreBoard.Wins}, Losses: ${scoreBoard.losses}, Ties: ${scoreBoard.Tie}`;
+  gameResult.textContent = "Result: ";
+}
 
 function computerMove() {
   return choices[Math.floor(Math.random() * choices.length)];
@@ -16,6 +23,7 @@ moveButtons.forEach((button) => {
   button.addEventListener("click", (e) => {
     if (e.currentTarget.id === "reset") return resetGameScore(e);
     playGame(e);
+    localStorage.setItem("scores", JSON.stringify(scoreBoard));
   });
 });
 
@@ -39,6 +47,7 @@ function playGame(playerMove) {
   gameScore.textContent = `Wins: ${scoreBoard.Wins}, Losses: ${scoreBoard.losses}, Ties: ${scoreBoard.Tie}`;
   gameResult.textContent = `Result: ${result}`;
   gameChoices.innerHTML = `PLAYER SELECT: <img src="Images/${playerChoice}-emoji.png"> COMPUTER SELECT: <img src="Images/${computerChoice}-emoji.png">`;
+  localStorage.setItem("scores", JSON.stringify(scoreBoard));
 }
 
 function resetGameScore(resetButton) {
@@ -49,5 +58,8 @@ function resetGameScore(resetButton) {
     gameScore.textContent = `Wins: ${scoreBoard.Wins}, Losses: ${scoreBoard.losses}, Ties: ${scoreBoard.Tie}`;
     gameChoices.innerHTML = "";
     gameResult.innerHTML = `Result:`;
+    localStorage.removeItem("scores");
   }
 }
+
+renderedGameScore();
