@@ -7,17 +7,21 @@
     <style>
       body {
         background-color: black;
+        color: wheat;
       }
     </style>
   </head>
   <body>
+    <label for="">Subject Field:</label>
     <input type="text" class="subject-input" />
+    <label for="">Duration Field (Minutes):</label>
     <input type="text" class="duration-input" />
     <button id="add">Add</button>
     <button id="reset">Reset All</button>
-    <p class="subject-output"></p>
-    <p class="duration-output"></p>
-
-    <script src="practice.js"></script>
+    <div class="session-container">
+      <p class="subject-output"></p>
+      <p class="duration-output"></p>
+    </div>
+    <script src="script.js""></script>
   </body>
-</html>
+</html> 
