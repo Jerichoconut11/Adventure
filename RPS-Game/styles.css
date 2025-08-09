@@ -33,9 +33,10 @@ body {
   font-size: 18px;
 }
 
-#reset {
+#reset,
+#autoplay {
   margin-top: 1rem;
-  padding: 15px;
+  padding: 12px;
   border-radius: 5px;
   border: 2px solid gray;
   cursor: pointer;

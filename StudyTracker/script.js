@@ -34,7 +34,7 @@ function renderedSessions() {
 }
 
 function editSession(index) {
-  const subjectField = prompt("Subject Field Edit");
+  const subjectField = prompt("Subject Field Edit").trim();
   const durationField = Number(prompt("Duration Field Edit"));
 
   if (!subjectField || !durationField) {

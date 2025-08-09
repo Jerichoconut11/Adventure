@@ -10,7 +10,7 @@ let result = "";
 
 function renderedGameScore() {
   const savedData = JSON.parse(localStorage.getItem("scores"));
-  scoreBoard = savedData || {};
+  scoreBoard = savedData || { Wins: 0, losses: 0, Tie: 0 };
   gameScore.textContent = `Wins: ${scoreBoard.Wins}, Losses: ${scoreBoard.losses}, Ties: ${scoreBoard.Tie}`;
   gameResult.textContent = "Result: ";
 }
@@ -18,14 +18,6 @@ function renderedGameScore() {
 function computerMove() {
   return choices[Math.floor(Math.random() * choices.length)];
 }
-
-moveButtons.forEach((button) => {
-  button.addEventListener("click", (e) => {
-    if (e.currentTarget.id === "reset") return resetGameScore(e);
-    playGame(e);
-    localStorage.setItem("scores", JSON.stringify(scoreBoard));
-  });
-});
 
 function playGame(playerMove) {
   const playerChoice = playerMove.currentTarget.id;
@@ -47,11 +39,10 @@ function playGame(playerMove) {
   gameScore.textContent = `Wins: ${scoreBoard.Wins}, Losses: ${scoreBoard.losses}, Ties: ${scoreBoard.Tie}`;
   gameResult.textContent = `Result: ${result}`;
   gameChoices.innerHTML = `PLAYER SELECT: <img src="Images/${playerChoice}-emoji.png"> COMPUTER SELECT: <img src="Images/${computerChoice}-emoji.png">`;
-  localStorage.setItem("scores", JSON.stringify(scoreBoard));
 }
 
 function resetGameScore(resetButton) {
-  if (resetButton.target.id === "reset") {
+  if (resetButton.currentTarget.id === "reset") {
     scoreBoard.Wins = 0;
     scoreBoard.losses = 0;
     scoreBoard.Tie = 0;
@@ -59,6 +50,33 @@ function resetGameScore(resetButton) {
     gameChoices.innerHTML = "";
     gameResult.innerHTML = `Result:`;
     localStorage.removeItem("scores");
+  }
+}
+
+moveButtons.forEach((button) => {
+  button.addEventListener("click", (e) => {
+    if (e.currentTarget.id === "reset") return resetGameScore(e);
+    else if (e.currentTarget.id === "autoplay") return autoPlay(e);
+    playGame(e);
+    localStorage.setItem("scores", JSON.stringify(scoreBoard));
+  });
+});
+
+let isAutoPlaying = false;
+let intervalId;
+
+function autoPlay(auto) {
+  if (!isAutoPlaying && auto.currentTarget.id === "autoplay") {
+    isAutoPlaying = true;
+    intervalId = setInterval(() => {
+      const move = computerMove();
+      const manipEvent = { currentTarget: { id: move } };
+      playGame(manipEvent);
+      localStorage.setItem("scores", JSON.stringify(scoreBoard));
+    }, 1000);
+  } else {
+    clearInterval(intervalId);
+    isAutoPlaying = false;
   }
 }
 
